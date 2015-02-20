@@ -22,8 +22,9 @@ console.log(fileDatas);
 
 var app = express();
 app.use(express.static(path.join(__dirname, 'app')));
-app.set('views', __dirname + '/app/views');
-app.set('view engine', 'jade');
+app.set('views', __dirname + '/frontend/app/');
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
 app.use('/', function(req, res) {
   res.render('index', {
