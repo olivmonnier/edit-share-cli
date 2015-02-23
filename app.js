@@ -16,7 +16,7 @@ program
 var port = program.port || 3000;
 
 var filename = process.argv[2],
-  fileDatas = fs.readFileSync(filename, 'utf8');
+  fileDatas = fs.readFileSync(filename, 'UTF-8');
 
 console.log(fileDatas);
 
@@ -26,10 +26,15 @@ app.set('views', __dirname + '/frontend/app/');
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
-app.use('/', function(req, res) {
+app.get('/', function(req, res) {
   res.render('index', {
     datas: fileDatas
   });
+});
+
+app.post('/save', function(req, res) {
+  var datas = req.body.datas;
+  fs.writeFileSync(filename, datas, "UTF-8");
 });
 
 app.listen(port);
