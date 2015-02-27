@@ -3,6 +3,7 @@
 var path = require('path'),
   fs = require('fs'),
   express = require('express'),
+  config = require('./config.js'),
   pkg = require(path.join(__dirname, 'package.json')),
   program = require('commander'),
   open = require("open");
@@ -19,16 +20,18 @@ var filename = process.argv[2],
   fileDatas = fs.readFileSync(filename, 'UTF-8');
 
 console.log(fileDatas);
+console.log(path.extname(filename));
 
 var app = express();
 app.use(express.static(path.join(__dirname, 'app')));
-app.set('views', __dirname + '/frontend/app/');
+app.set('views', __dirname + config.frontend_path);
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 app.get('/', function(req, res) {
   res.render('index', {
-    datas: fileDatas
+    datas: fileDatas,
+    extension: path.extname(filename)
   });
 });
 
