@@ -11,6 +11,7 @@ var path = require('path'),
 
 program
   .version(pkg.version)
+  .usage('[options] <file ...>')
   .option('-p, --port <port>', 'Port on which to listen to (defaults to 3000)',
     parseInt)
   .parse(process.argv);
@@ -19,9 +20,6 @@ var port = program.port || 3000;
 
 var filename = process.argv[2],
   fileDatas = fs.readFileSync(filename, 'UTF-8');
-
-console.log(fileDatas);
-console.log(path.extname(filename));
 
 var app = express();
 app.use(express.static(path.join(__dirname, '/frontend')));
