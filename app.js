@@ -3,6 +3,7 @@
 var path = require('path'),
   fs = require('fs'),
   express = require('express'),
+  bodyParser = require('body-parser'),
   config = require('./config.js'),
   pkg = require(path.join(__dirname, 'package.json')),
   program = require('commander'),
@@ -23,10 +24,14 @@ console.log(fileDatas);
 console.log(path.extname(filename));
 
 var app = express();
-app.use(express.static(path.join(__dirname, 'app')));
-app.set('views', __dirname + config.frontend_path);
+app.use(express.static(path.join(__dirname, '/frontend')));
+app.set('views', __dirname + config().frontend_path);
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 app.get('/', function(req, res) {
   res.render('index', {
@@ -36,6 +41,7 @@ app.get('/', function(req, res) {
 });
 
 app.post('/save', function(req, res) {
+
   var datas = req.body.datas;
   fs.writeFileSync(filename, datas, "UTF-8");
 });
