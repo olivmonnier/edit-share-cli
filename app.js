@@ -5,6 +5,7 @@ var path = require('path'),
   express = require('express'),
   bodyParser = require('body-parser'),
   config = require('./config.js'),
+  format = require('./find-format.js'),
   pkg = require(path.join(__dirname, 'package.json')),
   program = require('commander'),
   open = require("open");
@@ -19,7 +20,8 @@ program
 var port = program.port || 3000;
 
 var filename = process.argv[2],
-  fileDatas = fs.readFileSync(filename, 'UTF-8');
+  fileDatas = fs.readFileSync(filename, 'UTF-8'),
+  formatFile = format(path.extname(filename));
 
 var app = express();
 app.use(express.static(path.join(__dirname, '/frontend')));
@@ -34,7 +36,7 @@ app.use(bodyParser.urlencoded({
 app.get('/', function(req, res) {
   res.render('index', {
     datas: fileDatas,
-    extension: path.extname(filename)
+    format: formatFile
   });
 });
 
