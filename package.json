@@ -22,7 +22,8 @@
     "content-disposition": "^0.3.0",
     "ejs": "^2.2.4",
     "express": "^4.9.4",
-    "open": "0.0.5"
+    "open": "0.0.5",
+    "socket.io": "^1.3.5"
   },
   "preferGlobal": true,
   "bin": {

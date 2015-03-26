@@ -3,6 +3,9 @@
 var path = require('path'),
   fs = require('fs'),
   express = require('express'),
+  app = express(),
+  server = require('http').Server(app),
+  io = require('socket.io')(server),
   bodyParser = require('body-parser'),
   config = require('./config.js'),
   format = require('./find-format.js'),
@@ -21,9 +24,8 @@ var port = program.port || 3000;
 
 var filename = process.argv[2],
   fileDatas = fs.readFileSync(filename, 'UTF-8'),
-  formatFile = format(path.extname(filename));
+  formatFile = format(filename);
 
-var app = express();
 app.use(express.static(path.join(__dirname, '/frontend')));
 app.set('views', __dirname + config().frontend_path);
 app.engine('html', require('ejs').renderFile);
@@ -41,12 +43,18 @@ app.get('/', function(req, res) {
 });
 
 app.post('/save', function(req, res) {
-
   var datas = req.body.datas;
   fs.writeFileSync(filename, datas, "UTF-8");
+  console.log('Log: Save successfull (' + filename + ')');
 });
 
-app.listen(port);
+io.on('connection', function(socket) {
+  socket.on("docOnChange", function(doc) {
+    socket.broadcast.emit('docChange', doc);
+  });
+});
+
+server.listen(port);
 
 console.log('Edit share is running on port ' + port);
 

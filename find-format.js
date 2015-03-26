@@ -1,40 +1,29 @@
-var formats = [
-  {
-  	format: 'javascript',
-  	ext: 'js'
-  },
-  {
-  	format: 'html',
-  	ext: 'html'
-  },
-  {
-  	format: 'css',
-  	ext: 'css'
-  },
-  {
-    format: 'json',
-    ext: 'json'
-  },
-  {
-    format: 'markdown',
-    ext: 'md'
-  },
-  {
-    format: 'ruby',
-    ext: 'rb'
-  },
-  {
-    format: 'sass',
-    ext: 'scss'
-  }
-];
+var fs = require('fs'),
+  path = require('path');
 
-module.exports = function(extension) {
-  var ext = extension.slice(1);
+module.exports = function(filename) {
+  var extension = path.extname(filename).slice(1),
+    formats = fs.readFileSync('formats.json', 'UTF-8'),
+    ext = '';
 
-  for(var i = 0; i < formats.length; i++) {
-  	if(formats[i].ext == ext) {
-  	  return formats[i].format;
-  	}
+  (extension) ? ext = extension: ext = filename.slice(1);
+
+  var formatsJson = JSON.parse(formats);
+  var formatsList = formatsJson.formats;
+
+  for (var i = 0; i < formatsList.length; i++) {
+    if (formatsList[i].ext instanceof Array) {
+      for (var x = 0; x < formatsList[i].ext.length; x++) {
+        if (formatsList[i].ext[x] == ext) {
+          return formatsList[i].format;
+        }
+      }
+    } else {
+      if (formatsList[i].ext == ext) {
+        return formatsList[i].format;
+      }
+    }
   }
+
+  return "plain_text";
 }

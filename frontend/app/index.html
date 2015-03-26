@@ -24,12 +24,14 @@
     <![endif]-->
 
     <div class="row" ng-controller="EditorCtrl" ng-init="init()">
-      <div id="editor" class="col-md-12" ui-ace="{ mode: '<%= format %>', theme: 'monokai' }" ng-model="code"></div>
+      <div id="editor" class="col-md-12" ui-ace="{ mode: '<%= format %>', theme: 'monokai', onLoad: editorLoaded }" ng-model="code"></div>
       <div class="text-center">
         <button class="btn btn-primary" ng-click="save()">Save</button>
       </div>
+      <div id="result"></div>
     </div>
 
+    <script src="/socket.io/socket.io.js"></script>
     <script src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
