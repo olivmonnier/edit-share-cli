@@ -15,7 +15,9 @@
     <link rel="stylesheet" href="app/styles/main.css">
     <!-- endbuild -->
     <script>
-      datas = <%- JSON.stringify(datas) %>;
+      Global = {};
+      Global.datas = <%- JSON.stringify(datas) %>;
+      Global.readOnly = <%= readonly %>;
     </script>
   </head>
   <body ng-app="app">
@@ -24,7 +26,7 @@
     <![endif]-->
 
     <div class="row" ng-controller="EditorCtrl" ng-init="init()">
-      <div id="editor" class="col-md-12" ui-ace="{ mode: '<%= format %>', theme: 'monokai', onLoad: editorLoaded }" ng-model="code"></div>
+      <div id="editor" class="col-md-12" ui-ace="{ mode: '<%= format %>', theme: 'monokai' }" ng-model="code"></div>
       <div class="text-center">
         <button class="btn btn-primary" ng-click="save()">Save</button>
       </div>

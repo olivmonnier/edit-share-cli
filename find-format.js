@@ -1,15 +1,15 @@
 var fs = require('fs'),
-  path = require('path');
+  path = require('path'),
+  formats = require('./formats.js')();
 
-module.exports = function(filename) {
-  var extension = path.extname(filename).slice(1),
-    formats = fs.readFileSync('formats.json', 'UTF-8'),
+module.exports = function(filepath) {
+  var filename = path.basename(filepath),
+    extension = path.extname(filename).slice(1),
     ext = '';
 
   (extension) ? ext = extension: ext = filename.slice(1);
 
-  var formatsJson = JSON.parse(formats);
-  var formatsList = formatsJson.formats;
+  var formatsList = formats.formats;
 
   for (var i = 0; i < formatsList.length; i++) {
     if (formatsList[i].ext instanceof Array) {

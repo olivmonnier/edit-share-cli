@@ -1,9 +1,11 @@
 var editor = ace.edit('editor'),
   socket = io.connect();
+
 angular.module('app', ['ui.ace'])
   .controller('EditorCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.init = function() {
-      $scope.code = datas;
+      $scope.code = Global.datas;
+      editor.setReadOnly(Global.readOnly);
     };
     $scope.save = function() {
       $http.post('/save', {
@@ -17,8 +19,9 @@ socket.on('docChange', function(doc) {
 })
 
 $(document).ready(function() {
-  $(document).keypress(function() {
-    console.log('changed', editor.getValue());
-    socket.emit('docOnChange', editor.getValue());
+  $('#editor').keypress(function(e) {
+    var charInput = String.fromCharCode(e.which);
+    var editorContent = editor.getValue() + charInput;
+    socket.emit('docOnChange', editorContent);
   })
 })
