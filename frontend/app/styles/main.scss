@@ -1,5 +1,5 @@
-@import "../../bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+$icon-font-path: "../../bower_components/bootstrap-sass-official/assets/fonts/";
 
-#editor {
-  height: 800px;
-}
+@import "../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap.scss";
+@import "bootstrap-override.scss";
+@import "layout.scss";

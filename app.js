@@ -42,6 +42,7 @@ if (program.read) readOnly = true;
 app.get('/', function(req, res) {
   res.render('index', {
     datas: fileDatas,
+    filename: path.basename(filepath),
     format: formatFile,
     readonly: readOnly
   });
