@@ -33,9 +33,8 @@ $(document).ready(function() {
     resizeEditor();
   });
 
-  $('#editor').keypress(function(e) {
-    var charInput = String.fromCharCode(e.which);
-    var editorContent = editor.getValue() + charInput;
+  $('#editor').keyup(function() {
+    var editorContent = editor.getValue();
     socket.emit('docOnChange', editorContent);
   })
 })
