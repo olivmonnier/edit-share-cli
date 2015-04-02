@@ -25,7 +25,8 @@ angular.module('app', ['ui.ace'])
   }]);
 
 socket.on('docChange', function(doc) {
-  editor.setValue(doc);
+  editor.setValue(doc.content);
+  editor.gotoLine(doc.row);
 })
 
 $(document).ready(function() {
@@ -35,6 +36,10 @@ $(document).ready(function() {
 
   $('#editor').keyup(function() {
     var editorContent = editor.getValue();
-    socket.emit('docOnChange', editorContent);
+    var row = editor.selection.getCursor().row;
+    socket.emit('docOnChange', {
+      content: editorContent,
+      row: row
+    });
   })
 })

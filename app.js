@@ -59,8 +59,9 @@ app.post('/save', function(req, res) {
 
 io.on('connection', function(socket) {
   socket.on("docOnChange", function(doc) {
-    datas.content = doc;
-    socket.broadcast.emit('docChange', datas.content);
+    datas.content = doc.content;
+    datas.row = doc.row;
+    socket.broadcast.emit('docChange', datas);
   });
 });
 
