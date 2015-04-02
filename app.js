@@ -25,7 +25,10 @@ var port = program.port || 3000;
 
 var filepath = process.argv[2],
   fileDatas = fs.readFileSync(filepath, 'UTF-8'),
-  formatFile = format(filepath);
+  formatFile = format(filepath),
+  datas = {};
+
+datas.content = fileDatas;
 
 app.use(express.static(path.join(__dirname, '/frontend')));
 app.set('views', __dirname + config().frontend_path);
@@ -41,7 +44,7 @@ if (program.read) readOnly = true;
 
 app.get('/', function(req, res) {
   res.render('index', {
-    datas: fileDatas,
+    datas: datas.content,
     filename: path.basename(filepath),
     format: formatFile,
     readonly: readOnly
@@ -49,14 +52,15 @@ app.get('/', function(req, res) {
 });
 
 app.post('/save', function(req, res) {
-  var datas = req.body.datas;
-  fs.writeFileSync(filepath, datas, "UTF-8");
+  var content = req.body.datas;
+  fs.writeFileSync(filepath, content, "UTF-8");
   console.log('Log: Save successfull (' + path.basename(filepath) + ')');
 });
 
 io.on('connection', function(socket) {
   socket.on("docOnChange", function(doc) {
-    socket.broadcast.emit('docChange', doc);
+    datas.content = doc;
+    socket.broadcast.emit('docChange', datas.content);
   });
 });
 
