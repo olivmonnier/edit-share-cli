@@ -24,11 +24,25 @@ program
 var port = program.port || 3000;
 
 var filepath = process.argv[2],
-  fileDatas = fs.readFileSync(filepath, 'UTF-8'),
-  formatFile = format(filepath),
+  readOnly = false,
   datas = {};
 
-datas.content = fileDatas;
+if (program.read) readOnly = true;
+
+datas = {
+  file: {
+    name: path.basename(filepath),
+    format: format(filepath),
+    content: fs.readFileSync(filepath, 'UTF-8'),
+  },
+  editor: {
+    readonly: readOnly,
+    cursor: {
+      row: 1,
+      column: 1
+    }
+  }
+};
 
 app.use(express.static(path.join(__dirname, '/frontend')));
 app.set('views', __dirname + config().frontend_path);
@@ -39,15 +53,9 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-var readOnly = false;
-if (program.read) readOnly = true;
-
 app.get('/', function(req, res) {
   res.render('index', {
-    datas: datas.content,
-    filename: path.basename(filepath),
-    format: formatFile,
-    readonly: readOnly
+    datas: datas
   });
 });
 
@@ -59,8 +67,8 @@ app.post('/save', function(req, res) {
 
 io.on('connection', function(socket) {
   socket.on("docOnChange", function(doc) {
-    datas.content = doc.content;
-    datas.row = doc.row;
+    datas.file.content = doc.content;
+    datas.editor.cursor = doc.cursor;
     socket.broadcast.emit('docChange', datas);
   });
 });

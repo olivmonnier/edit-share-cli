@@ -9,8 +9,8 @@ function resizeEditor() {
 angular.module('app', ['ui.ace'])
   .controller('EditorCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.init = function() {
-      $scope.code = Global.datas;
-      editor.setReadOnly(Global.readOnly);
+      $scope.code = Global.file.content;
+      editor.setReadOnly(Global.editor.readonly);
       resizeEditor();
     };
     $scope.save = function() {
@@ -25,9 +25,12 @@ angular.module('app', ['ui.ace'])
   }]);
 
 socket.on('docChange', function(doc) {
-  editor.setValue(doc.content);
-  editor.gotoLine(doc.row);
-})
+  var cursorPos = doc.editor.cursor;
+  editor.setValue(doc.file.content);
+  editor.getSession().getSelection().selectionLead.setPosition(cursorPos.row,
+    cursorPos.column);
+  Global = doc;
+});
 
 $(document).ready(function() {
   $(window).on('resize', function() {
@@ -36,10 +39,10 @@ $(document).ready(function() {
 
   $('#editor').keyup(function() {
     var editorContent = editor.getValue();
-    var row = editor.selection.getCursor().row;
+    var cursorPos = editor.selection.getCursor();
     socket.emit('docOnChange', {
       content: editorContent,
-      row: row
+      cursor: cursorPos
     });
   })
 })

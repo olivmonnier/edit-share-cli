@@ -16,8 +16,7 @@
     <!-- endbuild -->
     <script>
       Global = {};
-      Global.datas = <%- JSON.stringify(datas) %>;
-      Global.readOnly = <%= readonly %>;
+      Global = <%- JSON.stringify(datas) %>;
     </script>
   </head>
   <body ng-app="app">
@@ -26,11 +25,11 @@
     <![endif]-->
 
     <div class="editor-content row" ng-controller="EditorCtrl" ng-init="init()">
-      <div id="editor" class="col-md-12" ui-ace="{ mode: '<%= format %>', theme: 'monokai' }" ng-model="code"></div>
+      <div id="editor" class="col-md-12" ui-ace="{ mode: '<%= datas.file.format %>', theme: 'monokai' }" ng-model="code"></div>
       <div class="actions-content">
         <div class="pull-right">
           <button class="btn btn-primary" ng-click="save()">Save</button>
-          <a class="btn btn-secondary" href="#" download="<%= filename %>" ng-click="export($event)">Export</a>
+          <a class="btn btn-secondary" href="#" download="<%= datas.file.name %>" ng-click="export($event)">Export</a>
         </div>
       </div>
     </div>
