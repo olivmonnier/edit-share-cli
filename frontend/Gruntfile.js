@@ -73,7 +73,7 @@ module.exports = function(grunt) {
     cssmin: {
       dist: {
         files: {
-          'dist/main.css': [
+          'dist/styles/main.css': [
             'app/styles/{,*/}*.css'
           ]
         }
@@ -110,12 +110,9 @@ module.exports = function(grunt) {
           removeRedundantAttributes: true,
           useShortDoctype: true
         },
-        files: [{
-          expand: true,
-          cwd: 'dist',
-          src: '{,*/}*.html',
-          dest: 'dist'
-        }]
+        files: {
+          'dist/index.html': 'app/index.html'
+        }
       }
     }
 
