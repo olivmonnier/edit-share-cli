@@ -7,13 +7,7 @@
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="/favicon.ico">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="app/styles/main.css">
-    <!-- endbuild -->
     <script>
       Global = {};
       Global = <%- JSON.stringify(datas) %>;
@@ -35,9 +29,8 @@
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
+    <!-- build:js scripts/vendor.js -->
     <script src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
-    <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/affix.js"></script>
     <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/alert.js"></script>
@@ -53,7 +46,6 @@
     <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/popover.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
-    <!-- endbower -->
     <!-- endbuild -->
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
@@ -66,8 +58,6 @@
       ga('create','UA-XXXXX-X');ga('send','pageview');
     </script>
 
-        <!-- build:js({app,.tmp}) scripts/main.js -->
-        <script src="app/scripts/main.js"></script>
-        <!-- endbuild -->
+    <script src="app/scripts/main.js"></script>
 </body>
 </html>

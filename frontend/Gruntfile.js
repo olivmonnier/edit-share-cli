@@ -70,6 +70,26 @@ module.exports = function(grunt) {
       }
     },
 
+    copy: {
+      dist: {
+        files: [{
+          src: 'app/index.html',
+          dest: 'dist/index.html'
+        }]
+      }
+    },
+
+    'useminPrepare': {
+      options: {
+        dest: 'dist'
+      },
+      html: 'app/index.html'
+    },
+
+    usemin: {
+      html: ['dist/index.html']
+    },
+
     cssmin: {
       dist: {
         files: {
@@ -111,7 +131,7 @@ module.exports = function(grunt) {
           useShortDoctype: true
         },
         files: {
-          'dist/index.html': 'app/index.html'
+          'dist/index.html': 'dist/index.html'
         }
       }
     }
@@ -143,8 +163,11 @@ module.exports = function(grunt) {
 
 
   grunt.registerTask('build', [
+    'useminPrepare',
+    'copy',
     'cssmin',
     'uglify',
+    'usemin',
     'htmlmin'
   ]);
 
