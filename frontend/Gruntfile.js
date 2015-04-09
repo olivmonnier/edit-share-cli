@@ -1,12 +1,4 @@
-// Generated on 2015-02-20 using
-// generator-webapp 0.5.1
 'use strict';
-
-// # Globbing
-// for performance reasons we're only matching one level down:
-// 'test/spec/{,*/}*.js'
-// If you want to recursively match all subfolders, use:
-// 'test/spec/**/*.js'
 
 module.exports = function(grunt) {
 
@@ -88,33 +80,6 @@ module.exports = function(grunt) {
 
     usemin: {
       html: ['dist/index.html']
-    },
-
-    cssmin: {
-      dist: {
-        files: {
-          'dist/styles/main.css': [
-            'app/styles/{,*/}*.css'
-          ]
-        }
-      },
-      server: {
-        files: {
-          'app/styles/main.css': [
-            'app/styles/{,*/}*.css'
-          ]
-        }
-      }
-    },
-
-    uglify: {
-      dist: {
-        files: {
-          'dist/scripts/app.js': [
-            'app/scripts/**/*.js'
-          ]
-        }
-      }
     },
 
     htmlmin: {
