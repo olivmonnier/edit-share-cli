@@ -133,8 +133,7 @@ module.exports = function(grunt) {
     'copy',
     'cssmin',
     'uglify',
-    'usemin',
-    'htmlmin'
+    'usemin'
   ]);
 
   grunt.registerTask('default', [

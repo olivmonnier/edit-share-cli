@@ -44,7 +44,10 @@ datas = {
   }
 };
 
-app.use(express.static(path.join(__dirname, '/frontend')));
+app.use('/scripts', express.static(path.join(__dirname,
+  config().scripts_path)));
+app.use('/styles', express.static(path.join(__dirname,
+  config().styles_path)));
 app.set('views', __dirname + config().frontend_path);
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
