@@ -36,6 +36,18 @@ module.exports = function(grunt) {
       }
     },
 
+    concat: {
+      options: {
+        separator: ';',
+      },
+      dist: {
+        src: [
+          'app/scripts/bower_components/ace-builds/src-min-noconflict/{,*/}*.js'
+        ],
+        dest: 'app/scripts/ace-lib.js',
+      },
+    },
+
     // Compiles Sass to CSS and generates necessary files if requested
     sass: {
       options: {
@@ -67,6 +79,9 @@ module.exports = function(grunt) {
         files: [{
           src: 'app/index.html',
           dest: 'dist/index.html'
+        }, {
+          src: 'app/scripts/ace-lib.js',
+          dest: 'dist/scripts/ace-lib.js'
         }]
       }
     },
@@ -115,6 +130,7 @@ module.exports = function(grunt) {
 
       grunt.task.run([
         'connect',
+        'concat',
         'watch'
       ]);
     });
