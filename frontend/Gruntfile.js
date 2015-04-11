@@ -36,17 +36,23 @@ module.exports = function(grunt) {
       }
     },
 
-    concat: {
-      options: {
-        separator: ';',
-      },
-      dist: {
-        src: [
-          'app/scripts/bower_components/ace-builds/src-min-noconflict/{,*/}*.js'
-        ],
-        dest: 'app/scripts/ace-lib.js',
-      },
-    },
+    // concat: {
+    //   options: {
+    //     separator: ';',
+    //   },
+    //   themes: {
+    //     src: 'app/scripts/bower_components/ace-builds/src-min-noconflict/theme-*.js',
+    //     dest: 'app/scripts/ace-lib/ace-themes.js'
+    //   },
+    //   modes: {
+    //     src: 'app/scripts/bower_components/ace-builds/src-min-noconflict/mode-*.js',
+    //     dest: 'app/scripts/ace-lib/ace-modes.js'
+    //   },
+    //   workers: {
+    //     src: 'app/scripts/bower_components/ace-builds/src-min-noconflict/worker-*.js',
+    //     dest: 'app/scripts/ace-lib/ace-workers.js'
+    //   }
+    // },
 
     // Compiles Sass to CSS and generates necessary files if requested
     sass: {
@@ -80,8 +86,18 @@ module.exports = function(grunt) {
           src: 'app/index.html',
           dest: 'dist/index.html'
         }, {
-          src: 'app/scripts/ace-lib.js',
-          dest: 'dist/scripts/ace-lib.js'
+          cwd: 'app/scripts/bower_components/ace-builds/src-min-noconflict',
+          src: '**/*',
+          dest: 'dist/scripts/ace-lib/',
+          expand: true
+        }]
+      },
+      server: {
+        files: [{
+          cwd: 'app/scripts/bower_components/ace-builds/src-min-noconflict',
+          src: '**/*',
+          dest: 'app/scripts/ace-lib/',
+          expand: true
         }]
       }
     },
@@ -130,7 +146,7 @@ module.exports = function(grunt) {
 
       grunt.task.run([
         'connect',
-        'concat',
+        'copy:server',
         'watch'
       ]);
     });
@@ -146,7 +162,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build', [
     'useminPrepare',
     'concat',
-    'copy',
+    'copy:dist',
     'cssmin',
     'uglify',
     'usemin'
