@@ -2,7 +2,7 @@
 <html class="no-js">
   <head>
     <meta charset="utf-8">
-    <title>app</title>
+    <title>Edit Share</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="/favicon.ico">
@@ -11,8 +11,9 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
     <script>
-      Global = {};
+      var Global = {};
       Global = <%- JSON.stringify(datas) %>;
+      window.Global = Global;
     </script>
   </head>
   <body ng-app="app">
@@ -21,14 +22,28 @@
     <![endif]-->
 
     <div class="editor-content row" ng-controller="EditorCtrl" ng-init="init()">
-      <div id="editor" class="col-md-12" ui-ace="{ require: ['ace/ext/language_tools'],
-        advanced: {
-          enableSnippets: true,
-          enableBasicAutocompletion: true,
-          enableLiveAutocompletion: true
-        },
-        mode: '<%= datas.file.format %>',
-        theme: 'monokai' }" ng-model="code"></div>
+      <div id="editor-menu" class="col-md-12">
+        <form class="form-inline">
+          <div class="form-group">
+            <label for="theme" class="control-label">Themes</label>
+            <select name="theme" class="form-control input-sm" ng-model="theme" ng-options="t for t in themes" ng-change="themeChanged()"></select>
+          </div>
+          <div class="form-group">
+            <label for="fontSize" class="control-label">Font-size</label>
+            <input type="number" name="fontSize" class="form-control input-sm" ng-model="fontSize" ng-change="fontSizeChanged()"/>
+          </div>
+          <div class="form-group">
+            <label for="tabSize" class="control-label">Tab size</label>
+            <select name="tabSize" class="form-control input-sm" ng-model="tabSize" ng-options="t for t in tabs" ng-change="tabSizeChanged()"></select>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" ng-model="wrapMode" ng-change="wrapChanged()"> Wrap mode
+            </label>
+          </div>
+        </form>
+      </div>
+      <div id="editor" class="col-md-12" ui-ace="aceOption" ng-model="code"></div>
       <div class="actions-content">
         <div class="pull-right">
           <button class="btn btn-primary" ng-click="save()">Save</button>
@@ -59,6 +74,7 @@
     <!-- endbuild -->
     <!-- build:js(./app) scripts/app.js -->
     <script src="scripts/main.js"></script>
+    <script src="scripts/socket.js"></script>
     <!-- endbuild -->
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

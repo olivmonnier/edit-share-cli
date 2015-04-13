@@ -23,18 +23,18 @@ module.exports = function(grunt) {
     },
 
     // The actual grunt server settings
-    connect: {
-      server: {
-        options: {
-          port: 9000,
-          open: true,
-          livereload: true,
-          // Change this to '0.0.0.0' to access the server from outside
-          hostname: 'localhost',
-          base: 'app'
-        }
-      }
-    },
+    // connect: {
+    //   server: {
+    //     options: {
+    //       port: 9000,
+    //       open: true,
+    //       livereload: true,
+    //       // Change this to '0.0.0.0' to access the server from outside
+    //       hostname: 'localhost',
+    //       base: 'app'
+    //     }
+    //   }
+    // },
 
     // concat: {
     //   options: {
@@ -53,6 +53,11 @@ module.exports = function(grunt) {
     //     dest: 'app/scripts/ace-lib/ace-workers.js'
     //   }
     // },
+
+    clean: {
+      dist: [".tmp", "dist"],
+      server: ['.tmp']
+    },
 
     // Compiles Sass to CSS and generates necessary files if requested
     sass: {
@@ -145,9 +150,9 @@ module.exports = function(grunt) {
       }
 
       grunt.task.run([
-        'connect',
-        'copy:server',
-        'watch'
+        'clean:server',
+        'sass:server',
+        'copy:server'
       ]);
     });
 
@@ -160,6 +165,7 @@ module.exports = function(grunt) {
 
 
   grunt.registerTask('build', [
+    'clean:dist',
     'useminPrepare',
     'concat',
     'copy:dist',

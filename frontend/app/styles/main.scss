@@ -1,5 +1,5 @@
-$icon-font-path: "../../bower_components/bootstrap-sass-official/assets/fonts/";
+$icon-font-path: "../scripts/bower_components/bootstrap-sass-official/assets/fonts/";
 
-@import "../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap.scss";
+@import "../scripts/bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap.scss";
 @import "bootstrap-override.scss";
 @import "layout.scss";

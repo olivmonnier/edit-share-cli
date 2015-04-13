@@ -13,4 +13,17 @@ body {
     bottom: 2em;
     padding-right: 2em;
   }
+
+  #editor-menu {
+    padding: .5em;
+    color: #888;
+
+    label {
+      font-weight: 200;
+    }
+    input, select {
+      background-color: #333;
+      color: #fff;
+    }
+  }
 }
