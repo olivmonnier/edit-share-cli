@@ -36,23 +36,27 @@ module.exports = function(grunt) {
     //   }
     // },
 
-    // concat: {
-    //   options: {
-    //     separator: ';',
-    //   },
-    //   themes: {
-    //     src: 'app/scripts/bower_components/ace-builds/src-min-noconflict/theme-*.js',
-    //     dest: 'app/scripts/ace-lib/ace-themes.js'
-    //   },
-    //   modes: {
-    //     src: 'app/scripts/bower_components/ace-builds/src-min-noconflict/mode-*.js',
-    //     dest: 'app/scripts/ace-lib/ace-modes.js'
-    //   },
-    //   workers: {
-    //     src: 'app/scripts/bower_components/ace-builds/src-min-noconflict/worker-*.js',
-    //     dest: 'app/scripts/ace-lib/ace-workers.js'
-    //   }
-    // },
+    concat: {
+      options: {
+        separator: ';',
+      },
+      extension: {
+        src: 'app/scripts/bower_components/ace-builds/src-min-noconflict/ext-*.js',
+        dest: 'app/scripts/ace-lib/ace-extensions.js'
+      }
+      //   themes: {
+      //     src: 'app/scripts/bower_components/ace-builds/src-min-noconflict/theme-*.js',
+      //     dest: 'app/scripts/ace-lib/ace-themes.js'
+      //   },
+      //   modes: {
+      //     src: 'app/scripts/bower_components/ace-builds/src-min-noconflict/mode-*.js',
+      //     dest: 'app/scripts/ace-lib/ace-modes.js'
+      //   },
+      //   workers: {
+      //     src: 'app/scripts/bower_components/ace-builds/src-min-noconflict/worker-*.js',
+      //     dest: 'app/scripts/ace-lib/ace-workers.js'
+      //   }
+    },
 
     clean: {
       dist: [".tmp", "dist"],
@@ -95,6 +99,14 @@ module.exports = function(grunt) {
           src: '**/*',
           dest: 'dist/scripts/ace-lib/',
           expand: true
+        }, {
+          src: 'app/scripts/ace-lib/ace-extensions.js',
+          dest: 'dist/scripts/ace-lib/ace-extensions.js'
+        }, {
+          cwd: 'app/fonts',
+          src: '**/*',
+          dest: 'dist/fonts',
+          expand: true
         }]
       },
       server: {
@@ -102,6 +114,11 @@ module.exports = function(grunt) {
           cwd: 'app/scripts/bower_components/ace-builds/src-min-noconflict',
           src: '**/*',
           dest: 'app/scripts/ace-lib/',
+          expand: true
+        }, {
+          cwd: 'app/scripts/bower_components/bootstrap-sass-official/assets/fonts/bootstrap',
+          src: '**/*',
+          dest: 'app/fonts/',
           expand: true
         }]
       }
@@ -151,6 +168,7 @@ module.exports = function(grunt) {
 
       grunt.task.run([
         'clean:server',
+        'concat',
         'sass:server',
         'copy:server'
       ]);

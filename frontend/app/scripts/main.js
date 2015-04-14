@@ -8,7 +8,15 @@ function resizeEditor() {
 
 angular.module('app', ['ui.ace'])
   .controller('EditorCtrl', ['$scope', '$http', function($scope, $http) {
-    $scope.themes = ['Monokai', 'Chrome'];
+    $scope.themes = ['Monokai', 'Ambiance', 'Chaos', 'Chrome', 'Clouds',
+      'Clouds_midnight', 'Cobalt', 'Crimson_editor', 'Dawn',
+      'Dreamweaver', 'Eclipse', 'Github', 'Idle_fingers', 'Katzenmilch',
+      'Kr_theme', 'Kuroir', 'Merbivore', 'Merbivore_soft',
+      'Mono_industrial', 'Pastel_on_dark', 'Solarized_dark',
+      'Solarized_light', 'Terminal', 'Textmate', 'Tomorrow',
+      'Tomorrow_night', 'Tomorrow_night_blue', 'Tomorrow_night_bright',
+      'Tomorrow_night_eighties', 'Twilight', 'Vibrant_ink', 'Xcode'
+    ];
     $scope.tabs = [2, 4, 6, 8];
     $scope.theme = $scope.themes[0];
     $scope.fontSize = 12;
