@@ -35,6 +35,7 @@ datas = {
     format: format(filepath),
     content: fs.readFileSync(filepath, 'UTF-8'),
   },
+  directory: path.dirname(filepath),
   editor: {
     readonly: readOnly,
     cursor: {
@@ -48,6 +49,8 @@ app.use('/scripts', express.static(path.join(__dirname,
   config().scripts_path)));
 app.use('/styles', express.static(path.join(__dirname,
   config().styles_path)));
+app.use('/fonts', express.static(path.join(__dirname,
+  config().fonts_path)));
 app.set('views', __dirname + config().frontend_path);
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
