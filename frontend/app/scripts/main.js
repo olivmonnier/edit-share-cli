@@ -54,22 +54,20 @@ angular.module('app', ['ui.ace'])
         };
         $scope.tabSizeChanged = function() {
           _editor.getSession().setTabSize($scope.tabSize);
-        }
+        };
         $scope.wrapChanged = function() {
           _editor.getSession().setUseWrapMode($scope.wrapMode);
-        }
+        };
+        $scope.save = function() {
+          $http.post('/save', {
+            'datas': editor.getValue()
+          });
+        };
+        $scope.export = function(obj) {
+          $(obj.target).attr('href', 'data:text/plain;charset=utf-8,' +
+            encodeURIComponent(editor.getValue()));
+        };
       }
-    };
-
-    $scope.save = function() {
-      $http.post('/save', {
-        'datas': editor.getValue()
-      });
-    };
-
-    $scope.export = function(obj) {
-      $(obj.target).attr('href', 'data:text/plain;charset=utf-8,' +
-        encodeURIComponent(editor.getValue()));
     };
   }]);
 

@@ -7,7 +7,7 @@ var path = require('path'),
   server = require('http').Server(app),
   io = require('socket.io')(server),
   bodyParser = require('body-parser'),
-  config = require('./config.js'),
+  config = require('./config.js')(),
   format = require('./find-format.js'),
   pkg = require(path.join(__dirname, 'package.json')),
   program = require('commander'),
@@ -46,12 +46,12 @@ datas = {
 };
 
 app.use('/scripts', express.static(path.join(__dirname,
-  config().scripts_path)));
+  config.scripts_path)));
 app.use('/styles', express.static(path.join(__dirname,
-  config().styles_path)));
+  config.styles_path)));
 app.use('/fonts', express.static(path.join(__dirname,
-  config().fonts_path)));
-app.set('views', __dirname + config().frontend_path);
+  config.fonts_path)));
+app.set('views', __dirname + config.frontend_path);
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 app.use(bodyParser.json());
