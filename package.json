@@ -1,19 +1,19 @@
 {
   "name": "edit-share",
   "version": "1.0.2",
-  "description": "",
+  "description": "A CLI to edit a file in your web browser and share it with websocket server by local IP adress.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": ["edit", "share", "collaborative", "websocket", "ace"],
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/Oliv75/edit-share-cli.git"
   },
   "author": {
     "name": "Oliv75",
-    "email": ""
+    "email": "omonnier.dev@gmail.com"
   },
   "license": "MIT",
   "dependencies": {
