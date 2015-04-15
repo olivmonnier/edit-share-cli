@@ -44,7 +44,9 @@
       <div id="editor" class="col-md-12" ui-ace="aceOption" ng-model="code"></div>
       <div class="actions-content">
         <div class="pull-right">
+          <% if (!datas.editor.readonly) { %>
           <button class="btn btn-primary" ng-click="save()"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Save</button>
+          <% } %>
           <a class="btn btn-secondary" href="#" download="<%= datas.file.name %>" ng-click="export($event)"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span> Export</a>
         </div>
       </div>
