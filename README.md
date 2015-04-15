@@ -1,6 +1,6 @@
 Edit Share
 ==========
-A CLI to edit a file in your web browser and share it with websocket server by local IP adress.
+A CLI to edit a file in your web browser and share it with websocket server by local address.
 
 ## Pre-requisite
 Install node package manager (npm)
