@@ -8,19 +8,12 @@ function resizeEditor() {
 
 angular.module('app', ['ui.ace'])
   .controller('EditorCtrl', ['$scope', '$http', function($scope, $http) {
-    $scope.themes = ['Monokai', 'Ambiance', 'Chaos', 'Chrome', 'Clouds',
-      'Clouds_midnight', 'Cobalt', 'Crimson_editor', 'Dawn',
-      'Dreamweaver', 'Eclipse', 'Github', 'Idle_fingers', 'Katzenmilch',
-      'Kr_theme', 'Kuroir', 'Merbivore', 'Merbivore_soft',
-      'Mono_industrial', 'Pastel_on_dark', 'Solarized_dark',
-      'Solarized_light', 'Terminal', 'Textmate', 'Tomorrow',
-      'Tomorrow_night', 'Tomorrow_night_blue', 'Tomorrow_night_bright',
-      'Tomorrow_night_eighties', 'Twilight', 'Vibrant_ink', 'Xcode'
-    ];
-    $scope.tabs = [2, 4, 6, 8];
-    $scope.theme = $scope.themes[0];
+    $scope.themes = ace.require('ace/ext/themelist').themesByName;
+    $scope.theme = "";
+    $scope.tabSizes = [2, 4, 6, 8];
+    $scope.fontSizes = [8, 10, 12, 14, 16, 18];
     $scope.fontSize = 12;
-    $scope.tabSize = $scope.tabs[0];
+    $scope.tabSize = $scope.tabSizes[0];
     $scope.wrapMode = true;
 
     $scope.init = function() {
@@ -31,7 +24,7 @@ angular.module('app', ['ui.ace'])
     $scope.aceOption = {
       require: ['ace/ext/language_tools'],
       mode: Global.file.format,
-      theme: $scope.theme.toLowerCase(),
+      theme: 'textmate',
       advanced: {
         enableSnippets: true,
         enableBasicAutocompletion: true,
@@ -45,17 +38,21 @@ angular.module('app', ['ui.ace'])
         _editor.getSession().setTabSize($scope.tabSize);
         _editor.getSession().setUseWrapMode($scope.wrapMode);
         //Events
-        $scope.themeChanged = function() {
-          _editor.setTheme('ace/theme/' + $scope.theme.toLowerCase());
+        $scope.themeChanged = function(theme) {
+          _editor.setTheme('ace/theme/' + theme.name);
+          $scope.theme = theme;
         };
-        $scope.fontSizeChanged = function() {
-          document.getElementById('editor').style.fontSize = $scope.fontSize +
+        $scope.fontSizeChanged = function(fontSize) {
+          document.getElementById('editor').style.fontSize = fontSize +
             'px';
+          $scope.fontSize = fontSize;
         };
-        $scope.tabSizeChanged = function() {
-          _editor.getSession().setTabSize($scope.tabSize);
+        $scope.tabSizeChanged = function(tabSize) {
+          _editor.getSession().setTabSize(tabSize);
+          $scope.tabSize = tabSize;
         };
         $scope.wrapChanged = function() {
+          ($scope.wrapMode)? $scope.wrapMode = false : $scope.wrapMode = true;
           _editor.getSession().setUseWrapMode($scope.wrapMode);
         };
         $scope.save = function() {

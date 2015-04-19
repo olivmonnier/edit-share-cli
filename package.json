@@ -1,7 +1,7 @@
 {
   "name": "edit-share",
-  "version": "1.0.2",
-  "description": "A CLI to edit a file in your web browser and share it with websocket server by local address.",
+  "version": "1.1.0",
+  "description": "A CLI to edit a file in your web browser and share it with websocket server by local address. Possibility to work in collaborative on a file",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

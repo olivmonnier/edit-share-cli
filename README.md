@@ -1,6 +1,6 @@
 Edit Share
 ==========
-A CLI to edit a file in your web browser and share it with websocket server by local address.
+A CLI to edit a file in your web browser and share it with websocket server by local address. Possibility to work in collaborative on a file.
 
 ## Pre-requisite
 Install node package manager (npm)
@@ -11,11 +11,19 @@ npm install -g edit-share
 ```
 
 ## How it works
-run in your terminal
+Run in your terminal
 ```terminal
 edit-share <path/your/file> [options]
 ```
-list all options
+Open a file with specific port (3000 by default)
+```terminal
+edit-share <path/your/file> --port 9000
+```
+Read only a file
+```terminal
+edit-share <path/your/file> --read
+```
+List all options
 ```terminal
 edit-share --help
 ```
