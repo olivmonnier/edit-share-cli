@@ -4916,12 +4916,29 @@ body {
     bottom: 2em;
     padding-right: 2em; }
   .editor-content #editor-menu {
-    padding: .5em;
-    color: #888; }
+    padding: .5em; }
+    .editor-content #editor-menu.dark {
+      background-color: #333;
+      color: #88898c; }
+      .editor-content #editor-menu.dark .btn-group .btn {
+        background-color: transparent; }
+        .editor-content #editor-menu.dark .btn-group .btn:hover, .editor-content #editor-menu.dark .btn-group .btn:active, .editor-content #editor-menu.dark .btn-group .btn:focus {
+          color: #fff; }
+      .editor-content #editor-menu.dark .btn-group .dropdown-menu {
+        background-color: #333; }
+        .editor-content #editor-menu.dark .btn-group .dropdown-menu li a {
+          color: #88898c; }
+          .editor-content #editor-menu.dark .btn-group .dropdown-menu li a:hover, .editor-content #editor-menu.dark .btn-group .dropdown-menu li a:active, .editor-content #editor-menu.dark .btn-group .dropdown-menu li a:focus {
+            background-color: #444;
+            color: #fff; }
+    .editor-content #editor-menu.light {
+      background-color: #ccc; }
+      .editor-content #editor-menu.light .btn-group .btn {
+        background-color: #fff; }
     .editor-content #editor-menu label {
       font-weight: 200; }
-    .editor-content #editor-menu input, .editor-content #editor-menu select {
-      background-color: #333;
-      color: #fff; }
+    .editor-content #editor-menu .dropdown-menu {
+      max-height: 250px;
+      overflow: auto; }
 
 /*# sourceMappingURL=main.css.map */

@@ -20,26 +20,36 @@
     <![endif]-->
 
     <div class="editor-content row" ng-controller="EditorCtrl" ng-init="init()">
-      <div id="editor-menu" class="col-md-12">
-        <form class="form-inline">
-          <div class="form-group">
-            <label for="theme" class="sr-only">Themes</label>
-            <select name="theme" class="form-control input-sm" ng-model="theme" ng-options="t for t in themes" ng-change="themeChanged()"></select>
+      <div id="editor-menu" class="col-md-12" ng-class="{'dark': theme.isDark, 'light': !theme.isDark}">
+        <div class="btn-group">
+          <div class="btn-group btn-group-sm">
+            <button class="btn dropdown-toogle" data-toggle="dropdown" aria-expanded="false">
+              <span class="glyphicon glyphicon-text-color"></span> {{theme.caption || 'TextMate'}} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" >
+              <li ng-repeat="t in themes"><a href="#" ng-click="themeChanged(t)">{{t.caption}}</a></li>
+            </ul>
           </div>
-          <div class="form-group">
-            <label for="fontSize" class="sr-only">Font-size</label>
-            <input type="number" name="fontSize" class="form-control input-sm" ng-model="fontSize" ng-change="fontSizeChanged()"/>
+          <div class="btn-group btn-group-sm">
+            <button class="btn dropdown-toogle" data-toggle="dropdown" aria-expanded="false">
+              <span class="glyphicon glyphicon-text-size"></span> {{fontSize}}px <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" >
+              <li ng-repeat="f in fontSizes"><a href="#" ng-click="fontSizeChanged(f)">{{f}}px</a></li>
+            </ul>
           </div>
-          <div class="form-group">
-            <label for="tabSize" class="sr-only">Tab size</label>
-            <select name="tabSize" class="form-control input-sm" ng-model="tabSize" ng-options="t for t in tabs" ng-change="tabSizeChanged()"></select>
+          <div class="btn-group btn-group-sm">
+            <button class="btn dropdown-toogle" data-toggle="dropdown" aria-expanded="false">
+              <span class="glyphicon glyphicon-resize-horizontal"></span> {{tabSize}} spaces <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" >
+              <li ng-repeat="tab in tabSizes"><a href="#" ng-click="tabSizeChanged(tab)">{{tab}} spaces</a></li>
+            </ul>
           </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" ng-model="wrapMode" ng-change="wrapChanged()"> Wrap mode
-            </label>
-          </div>
-        </form>
+          <button class="btn btn-sm" ng-click="wrapChanged()">
+            <span class="glyphicon " ng-class="{'glyphicon-ok':wrapMode, 'glyphicon-remove':!wrapMode}"></span> Wrap mode
+          </button>
+        </div>
       </div>
       <div id="editor" class="col-md-12" ui-ace="aceOption" ng-model="code"></div>
       <div class="actions-content">

@@ -16,14 +16,52 @@ body {
 
   #editor-menu {
     padding: .5em;
-    color: #888;
 
+    &.dark {
+      background-color: #333;
+      color: #88898c;
+
+      .btn-group {
+
+        .btn {
+          background-color: transparent;
+
+          &:hover, &:active, &:focus {
+            color: #fff;
+          }
+        }
+        .dropdown-menu {
+          background-color: #333;
+
+          li {
+            a {
+              color: #88898c;
+
+              &:hover, &:active, &:focus {
+                background-color: #444;
+                color: #fff;
+              }
+            }
+          }
+        }
+      }
+    }
+    &.light {
+      background-color: #ccc;
+
+      .btn-group {
+        .btn {
+          background-color: #fff;
+        }
+      }
+    }
     label {
       font-weight: 200;
     }
-    input, select {
-      background-color: #333;
-      color: #fff;
+
+    .dropdown-menu {
+      max-height: 250px;
+      overflow: auto;
     }
   }
 }
